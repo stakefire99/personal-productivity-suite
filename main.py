@@ -1,3 +1,5 @@
+from modules.notes_manager import NotesManager
+
 def main_menu():
     while True:
         print("\n" + "="*40)
@@ -15,7 +17,8 @@ def main_menu():
         if choice == "1":
             print("\nCalculator module coming soon...")
         elif choice == "2":
-            print("\nNotes Manager module coming soon...")
+            notes_manager = NotesManager()
+            notes_manager.show_menu()
         elif choice == "3":
             print("\nTimer module coming soon...")
         elif choice == "4":
