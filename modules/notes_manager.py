@@ -35,7 +35,8 @@ class NotesManager:
             print("2. Add New Note")
             print("3. Search Notes")
             print("4. Edit Note")
-            print("5. Back to Main Menu")
+            print("5. Delete Note")
+            print("6. Back to Main Menu")
 
 
             choice = input("Enter your choice: ")
@@ -49,6 +50,8 @@ class NotesManager:
             elif choice == "4":
                 self.edit_note()
             elif choice == "5":
+                self.delete_note()
+            elif choice == "6":
                 break
             else:
                 print("Invalid input. Please try again.")
@@ -139,6 +142,26 @@ def edit_note(self):
 
             self.save_notes()
             print("Note updated successfully.")
+            return
+
+    print("Note ID not found.")
+
+def delete_note(self):
+    if not self.notes:
+        print("No notes available to delete.")
+        return
+
+    try:
+        note_id = int(input("Enter Note ID to delete: "))
+    except ValueError:
+        print("Invalid ID. Please enter a numeric value.")
+        return
+
+    for note in self.notes:
+        if note["id"] == note_id:
+            self.notes.remove(note)
+            self.save_notes()
+            print("Note deleted successfully.")
             return
 
     print("Note ID not found.")
