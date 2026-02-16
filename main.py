@@ -1,5 +1,7 @@
 from modules.notes_manager import NotesManager
 from modules.calculator import Calculator
+from modules.timer import Timer
+
 def main_menu():
     while True:
         print("\n" + "="*40)
@@ -21,7 +23,8 @@ def main_menu():
             notes_manager = NotesManager()
             notes_manager.show_menu()
         elif choice == "3":
-            print("\nTimer module coming soon...")
+            timer = Timer()
+            timer.show_menu()
         elif choice == "4":
             print("\nFile Organizer module coming soon...")
         elif choice == "5":
