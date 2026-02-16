@@ -1,6 +1,9 @@
 [
     {
+        "id": 1,
         "title": "Lola",
-        "content": "It's fun to work"
+        "content": "It's fun to work here!",
+        "created": "2026-02-16 16:02:32",
+        "modified": "2026-02-16 16:02:32"
     }
 ]

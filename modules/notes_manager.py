@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 
 class NotesManager:
@@ -22,11 +23,16 @@ class NotesManager:
         with open(self.file_path, "w") as file:
             json.dump(self.notes, file, indent=4)
 
+    def generate_id(self):
+        if not self.notes:
+            return 1
+        return max(note["id"] for note in self.notes) + 1
+
     def show_menu(self):
         while True:
             print("\n--- NOTES MANAGER ---")
-            print("1. View Notes")
-            print("2. Add Note")
+            print("1. View All Notes")
+            print("2. Add New Note")
             print("3. Back to Main Menu")
 
             choice = input("Enter your choice: ")
@@ -41,24 +47,37 @@ class NotesManager:
                 print("Invalid input. Please try again.")
 
     def add_note(self):
-        title = input("Enter note title: ")
-        content = input("Enter note content: ")
+        title = input("Enter note title: ").strip()
+        content = input("Enter note content: ").strip()
+
+        if not title or not content:
+            print("Title and content cannot be empty.")
+            return
 
         note = {
+            "id": self.generate_id(),
             "title": title,
-            "content": content
+            "content": content,
+            "created": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "modified": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
 
         self.notes.append(note)
         self.save_notes()
-        print("Note added successfully!")
+
+        print("\nNote added successfully!")
+        print(f"Note ID: {note['id']}")
+        print(f"Created: {note['created']}")
 
     def view_notes(self):
         if not self.notes:
             print("No notes available.")
             return
 
-        for index, note in enumerate(self.notes, start=1):
-            print(f"\nNote {index}")
+        for note in self.notes:
+            print("\n---------------------------------")
+            print(f"ID: {note['id']}")
             print(f"Title: {note['title']}")
             print(f"Content: {note['content']}")
+            print(f"Created: {note['created']}")
+            print(f"Modified: {note['modified']}")
