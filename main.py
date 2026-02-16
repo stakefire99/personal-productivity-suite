@@ -1,0 +1,33 @@
+def main_menu():
+    while True:
+        print("\n" + "="*40)
+        print("     PERSONAL PRODUCTIVITY SUITE")
+        print("="*40)
+        print("1. Calculator")
+        print("2. Notes Manager")
+        print("3. Timer")
+        print("4. File Organizer")
+        print("5. Unit Converter")
+        print("6. Exit")
+        
+        choice = input("\nEnter your choice (1-6): ")
+
+        if choice == "1":
+            print("\nCalculator module coming soon...")
+        elif choice == "2":
+            print("\nNotes Manager module coming soon...")
+        elif choice == "3":
+            print("\nTimer module coming soon...")
+        elif choice == "4":
+            print("\nFile Organizer module coming soon...")
+        elif choice == "5":
+            print("\nUnit Converter module coming soon...")
+        elif choice == "6":
+            print("\nExiting application. Goodbye!")
+            break
+        else:
+            print("\nInvalid input. Please enter a number between 1 and 6.")
+
+
+if __name__ == "__main__":
+    main_menu()
