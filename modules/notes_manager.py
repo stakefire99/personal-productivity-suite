@@ -33,7 +33,9 @@ class NotesManager:
             print("\n--- NOTES MANAGER ---")
             print("1. View All Notes")
             print("2. Add New Note")
-            print("3. Back to Main Menu")
+            print("3. Search Notes")
+            print("4. Back to Main Menu")
+
 
             choice = input("Enter your choice: ")
 
@@ -42,9 +44,12 @@ class NotesManager:
             elif choice == "2":
                 self.add_note()
             elif choice == "3":
+                self.search_notes()
+            elif choice == "4":
                 break
             else:
                 print("Invalid input. Please try again.")
+
 
     def add_note(self):
         title = input("Enter note title: ").strip()
@@ -81,3 +86,25 @@ class NotesManager:
             print(f"Content: {note['content']}")
             print(f"Created: {note['created']}")
             print(f"Modified: {note['modified']}")
+    
+def search_notes(self):
+    keyword = input("Enter keyword to search: ").strip().lower()
+
+    if not keyword:
+        print("Search keyword cannot be empty.")
+        return
+
+    found = False
+
+    for note in self.notes:
+        if keyword in note["title"].lower() or keyword in note["content"].lower():
+            print("\n---------------------------------")
+            print(f"ID: {note['id']}")
+            print(f"Title: {note['title']}")
+            print(f"Content: {note['content']}")
+            print(f"Created: {note['created']}")
+            print(f"Modified: {note['modified']}")
+            found = True
+
+    if not found:
+        print("No matching notes found.")
