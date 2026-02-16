@@ -34,7 +34,8 @@ class NotesManager:
             print("1. View All Notes")
             print("2. Add New Note")
             print("3. Search Notes")
-            print("4. Back to Main Menu")
+            print("4. Edit Note")
+            print("5. Back to Main Menu")
 
 
             choice = input("Enter your choice: ")
@@ -46,6 +47,8 @@ class NotesManager:
             elif choice == "3":
                 self.search_notes()
             elif choice == "4":
+                self.edit_note()
+            elif choice == "5":
                 break
             else:
                 print("Invalid input. Please try again.")
@@ -108,3 +111,34 @@ def search_notes(self):
 
     if not found:
         print("No matching notes found.")
+def edit_note(self):
+    if not self.notes:
+        print("No notes available to edit.")
+        return
+
+    try:
+        note_id = int(input("Enter Note ID to edit: "))
+    except ValueError:
+        print("Invalid ID. Please enter a numeric value.")
+        return
+
+    for note in self.notes:
+        if note["id"] == note_id:
+            print(f"Current Title: {note['title']}")
+            print(f"Current Content: {note['content']}")
+
+            new_title = input("Enter new title (leave blank to keep current): ").strip()
+            new_content = input("Enter new content (leave blank to keep current): ").strip()
+
+            if new_title:
+                note["title"] = new_title
+            if new_content:
+                note["content"] = new_content
+
+            note["modified"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+            self.save_notes()
+            print("Note updated successfully.")
+            return
+
+    print("Note ID not found.")
