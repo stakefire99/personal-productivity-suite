@@ -1,6 +1,8 @@
 from modules.notes_manager import NotesManager
 from modules.calculator import Calculator
 from modules.timer import Timer
+from modules.file_organizer import FileOrganizer
+from modules.unit_converter import UnitConverter
 
 def main_menu():
     while True:
@@ -26,9 +28,11 @@ def main_menu():
             timer = Timer()
             timer.show_menu()
         elif choice == "4":
-            print("\nFile Organizer module coming soon...")
+            organizer = FileOrganizer()
+            organizer.show_menu()
         elif choice == "5":
-            print("\nUnit Converter module coming soon...")
+            converter = UnitConverter()
+            converter.show_menu()
         elif choice == "6":
             print("\nExiting application. Goodbye!")
             break
