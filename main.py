@@ -1,5 +1,5 @@
 from modules.notes_manager import NotesManager
-
+from modules.calculator import Calculator
 def main_menu():
     while True:
         print("\n" + "="*40)
@@ -15,7 +15,8 @@ def main_menu():
         choice = input("\nEnter your choice (1-6): ")
 
         if choice == "1":
-            print("\nCalculator module coming soon...")
+            calculator = Calculator()
+            calculator.show_menu()
         elif choice == "2":
             notes_manager = NotesManager()
             notes_manager.show_menu()

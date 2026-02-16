@@ -1,0 +1,21 @@
+NOTES EXPORT
+========================================
+
+ID: 1
+Title: Lola
+Content: It's fun to work here!
+Created: 2026-02-16 16:02:32
+Modified: 2026-02-16 16:02:32
+----------------------------------------
+ID: 2
+Title: Voila
+Content: It's good to be rome
+Created: 2026-02-16 16:51:23
+Modified: 2026-02-16 16:51:23
+----------------------------------------
+ID: 3
+Title: Au voir
+Content: Context unclear :)
+Created: 2026-02-16 16:51:47
+Modified: 2026-02-16 16:51:47
+----------------------------------------
