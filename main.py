@@ -3,6 +3,7 @@ from modules.calculator import Calculator
 from modules.timer import Timer
 from modules.file_organizer import FileOrganizer
 from modules.unit_converter import UnitConverter
+from modules.backup_manager import BackupManager
 
 def main_menu():
     while True:
@@ -14,9 +15,10 @@ def main_menu():
         print("3. Timer")
         print("4. File Organizer")
         print("5. Unit Converter")
-        print("6. Exit")
+        print("6. Backup & Restore")
+        print("7. Exit")
         
-        choice = input("\nEnter your choice (1-6): ")
+        choice = input("\nEnter your choice (1-7): ")
 
         if choice == "1":
             calculator = Calculator()
@@ -34,6 +36,9 @@ def main_menu():
             converter = UnitConverter()
             converter.show_menu()
         elif choice == "6":
+            backup_manager = BackupManager()
+            backup_manager.show_menu()
+        elif choice == "7":
             print("\nExiting application. Goodbye!")
             break
         else:
