@@ -1,6 +1,26 @@
+import json
+import os
+
+
 class NotesManager:
     def __init__(self):
+        self.file_path = "data/notes.json"
         self.notes = []
+        self.load_notes()
+
+    def load_notes(self):
+        if os.path.exists(self.file_path):
+            try:
+                with open(self.file_path, "r") as file:
+                    self.notes = json.load(file)
+            except json.JSONDecodeError:
+                self.notes = []
+        else:
+            self.notes = []
+
+    def save_notes(self):
+        with open(self.file_path, "w") as file:
+            json.dump(self.notes, file, indent=4)
 
     def show_menu(self):
         while True:
@@ -30,6 +50,7 @@ class NotesManager:
         }
 
         self.notes.append(note)
+        self.save_notes()
         print("Note added successfully!")
 
     def view_notes(self):
