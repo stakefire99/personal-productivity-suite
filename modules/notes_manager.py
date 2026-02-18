@@ -5,7 +5,20 @@ from datetime import datetime
 
 class NotesManager:
     def __init__(self):
-        self.file_path = "data/notes.json"
+        # Get absolute project root directory
+        base_dir = os.getcwd()
+
+        # Define absolute path for notes.json
+        self.file_path = os.path.join(base_dir, "data", "notes.json")
+
+        # Ensure data folder exists
+        os.makedirs(os.path.dirname(self.file_path), exist_ok=True)
+
+        # Ensure notes.json exists
+        if not os.path.exists(self.file_path):
+            with open(self.file_path, "w", encoding="utf-8") as f:
+                json.dump([], f)
+
         self.notes = []
         self.load_notes()
 
@@ -14,13 +27,10 @@ class NotesManager:
     # ----------------------------
 
     def load_notes(self):
-        if os.path.exists(self.file_path):
-            try:
-                with open(self.file_path, "r", encoding="utf-8") as file:
-                    self.notes = json.load(file)
-            except json.JSONDecodeError:
-                self.notes = []
-        else:
+        try:
+            with open(self.file_path, "r", encoding="utf-8") as file:
+                self.notes = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
             self.notes = []
 
     def save_notes(self):
@@ -33,7 +43,7 @@ class NotesManager:
         return max(note["id"] for note in self.notes) + 1
 
     # ----------------------------
-    # Menu System
+    # Menu
     # ----------------------------
 
     def show_menu(self):
@@ -89,9 +99,7 @@ class NotesManager:
         self.notes.append(note)
         self.save_notes()
 
-        print("\nNote added successfully!")
-        print(f"Note ID: {note['id']}")
-        print(f"Created: {note['created']}")
+        print("Note added successfully!")
 
     def view_notes(self):
         if not self.notes:
@@ -99,7 +107,7 @@ class NotesManager:
             return
 
         for note in self.notes:
-            print("\n---------------------------------")
+            print("\n-----------------------------")
             print(f"ID: {note['id']}")
             print(f"Title: {note['title']}")
             print(f"Content: {note['content']}")
@@ -117,7 +125,7 @@ class NotesManager:
 
         for note in self.notes:
             if keyword in note["title"].lower() or keyword in note["content"].lower():
-                print("\n---------------------------------")
+                print("\n-----------------------------")
                 print(f"ID: {note['id']}")
                 print(f"Title: {note['title']}")
                 print(f"Content: {note['content']}")
@@ -129,21 +137,14 @@ class NotesManager:
             print("No matching notes found.")
 
     def edit_note(self):
-        if not self.notes:
-            print("No notes available to edit.")
-            return
-
         try:
             note_id = int(input("Enter Note ID to edit: "))
         except ValueError:
-            print("Invalid ID. Please enter a numeric value.")
+            print("Invalid ID.")
             return
 
         for note in self.notes:
             if note["id"] == note_id:
-                print(f"Current Title: {note['title']}")
-                print(f"Current Content: {note['content']}")
-
                 new_title = input("Enter new title (leave blank to keep current): ").strip()
                 new_content = input("Enter new content (leave blank to keep current): ").strip()
 
@@ -153,7 +154,6 @@ class NotesManager:
                     note["content"] = new_content
 
                 note["modified"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
                 self.save_notes()
                 print("Note updated successfully.")
                 return
@@ -161,14 +161,10 @@ class NotesManager:
         print("Note ID not found.")
 
     def delete_note(self):
-        if not self.notes:
-            print("No notes available to delete.")
-            return
-
         try:
             note_id = int(input("Enter Note ID to delete: "))
         except ValueError:
-            print("Invalid ID. Please enter a numeric value.")
+            print("Invalid ID.")
             return
 
         for note in self.notes:
@@ -181,7 +177,7 @@ class NotesManager:
         print("Note ID not found.")
 
     # ----------------------------
-    # Export Feature (TXT)
+    # Export
     # ----------------------------
 
     def export_notes(self):
@@ -189,7 +185,7 @@ class NotesManager:
             print("No notes available to export.")
             return
 
-        export_path = "data/notes_export.txt"
+        export_path = os.path.join(os.getcwd(), "data", "notes_export.txt")
 
         try:
             with open(export_path, "w", encoding="utf-8") as file:
@@ -204,7 +200,6 @@ class NotesManager:
                     file.write(f"Modified: {note['modified']}\n")
                     file.write("-" * 40 + "\n")
 
-            print(f"Notes exported successfully to {export_path}")
-
+            print("Notes exported successfully.")
         except Exception as e:
             print("Error exporting notes:", e)
